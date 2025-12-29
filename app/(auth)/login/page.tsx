@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { signIn, getSession, useSession } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
@@ -9,7 +9,7 @@ import { NeuButton } from '@/components/ui/NeuButton';
 import { NeuInput } from '@/components/ui/NeuInput';
 import { NeuCard } from '@/components/ui/NeuCard';
 
-export default function LoginPage() {
+function LoginContent() {
     const router = useRouter();
     const { status } = useSession();
     const searchParams = useSearchParams();
@@ -197,3 +197,27 @@ export default function LoginPage() {
         </div>
     );
 }
+
+function LoginFallback() {
+    return (
+        <div className="min-h-screen bg-neu-bg flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+            <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
+                <div className="mx-auto h-20 w-20 rounded-full flex items-center justify-center text-blue-600 text-4xl shadow-neumorphism animate-pulse">
+                    <FaUserMd />
+                </div>
+                <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-800">
+                    Loading...
+                </h2>
+            </div>
+        </div>
+    );
+}
+
+export default function LoginPage() {
+    return (
+        <Suspense fallback={<LoginFallback />}>
+            <LoginContent />
+        </Suspense>
+    );
+}
+

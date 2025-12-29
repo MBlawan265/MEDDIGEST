@@ -5,6 +5,8 @@ import connectToDatabase from '@/lib/db';
 import User from '@/models/User';
 import Progress from '@/models/Progress';
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(req: Request) {
     const session = await getServerSession(authOptions);
     if (!session || session.user.role !== 'owner') {

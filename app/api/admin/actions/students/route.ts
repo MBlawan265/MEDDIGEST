@@ -6,6 +6,8 @@ import User from '@/models/User';
 import Course from '@/models/Course';
 import Progress from '@/models/Progress';
 
+export const dynamic = 'force-dynamic';
+
 // GET: List Students
 export async function GET(req: Request) {
     const session = await getServerSession(authOptions);

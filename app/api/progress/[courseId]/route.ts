@@ -4,6 +4,8 @@ import { authOptions } from '@/lib/auth';
 import connectToDatabase from '@/lib/db';
 import Progress from '@/models/Progress';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(
     req: Request,
     { params }: { params: { courseId: string } }

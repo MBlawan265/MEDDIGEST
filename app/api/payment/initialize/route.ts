@@ -7,6 +7,8 @@ import Course from '@/models/Course';
 import { initializePayment } from '@/lib/paystack';
 import User from '@/models/User';
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(req: Request) {
     const session = await getServerSession(authOptions);
 

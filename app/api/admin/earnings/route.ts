@@ -4,6 +4,8 @@ import { authOptions } from '@/lib/auth';
 import connectToDatabase from '@/lib/db';
 import Payment from '@/models/Payment';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
     try {
         const session = await getServerSession(authOptions);

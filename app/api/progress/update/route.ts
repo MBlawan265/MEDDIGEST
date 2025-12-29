@@ -6,6 +6,8 @@ import Progress from '@/models/Progress';
 import Course from '@/models/Course';
 import User from '@/models/User';
 
+export const dynamic = 'force-dynamic';
+
 // POST - Update playback position and per-lesson progress
 export async function POST(req: Request) {
     const session = await getServerSession(authOptions);

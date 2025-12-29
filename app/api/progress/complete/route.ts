@@ -7,6 +7,8 @@ import Course from '@/models/Course';
 import User from '@/models/User';
 import mongoose from 'mongoose';
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(req: Request) {
     const session = await getServerSession(authOptions);
 

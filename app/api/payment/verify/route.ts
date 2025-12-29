@@ -8,6 +8,8 @@ import Course from '@/models/Course';
 import User from '@/models/User';
 import { verifyPayment } from '@/lib/paystack';
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(req: Request) {
     const session = await getServerSession(authOptions);
 

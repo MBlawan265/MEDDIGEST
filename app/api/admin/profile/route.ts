@@ -5,6 +5,8 @@ import connectToDatabase from '@/lib/db';
 import User from '@/models/User';
 import bcrypt from 'bcryptjs';
 
+export const dynamic = 'force-dynamic';
+
 // GET current user profile (admin or instructor)
 export async function GET(req: Request) {
     try {

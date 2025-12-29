@@ -5,6 +5,8 @@ import connectToDatabase from '@/lib/db';
 import Mcq from '@/models/MCQ';
 import { UserRole } from '@/models/User';
 
+export const dynamic = 'force-dynamic';
+
 // GET single MCQ
 export async function GET(
     req: Request,
