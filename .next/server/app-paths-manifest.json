@@ -1,0 +1,19 @@
+{
+  "/page": "app/page.js",
+  "/(student)/profile/page": "app/(student)/profile/page.js",
+  "/courses/[courseId]/page": "app/courses/[courseId]/page.js",
+  "/(auth)/login/page": "app/(auth)/login/page.js",
+  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
+  "/api/courses/[courseId]/route": "app/api/courses/[courseId]/route.js",
+  "/api/student/profile/route": "app/api/student/profile/route.js",
+  "/api/admin/courses/route": "app/api/admin/courses/route.js",
+  "/api/admin/instructors/route": "app/api/admin/instructors/route.js",
+  "/api/admin/earnings/route": "app/api/admin/earnings/route.js",
+  "/api/admin/actions/students/route": "app/api/admin/actions/students/route.js",
+  "/api/admin/profile/route": "app/api/admin/profile/route.js",
+  "/(dashboard)/admin/page": "app/(dashboard)/admin/page.js",
+  "/(dashboard)/admin/students/page": "app/(dashboard)/admin/students/page.js",
+  "/(dashboard)/admin/courses/page": "app/(dashboard)/admin/courses/page.js",
+  "/(dashboard)/admin/settings/page": "app/(dashboard)/admin/settings/page.js",
+  "/(dashboard)/admin/instructors/page": "app/(dashboard)/admin/instructors/page.js"
+}

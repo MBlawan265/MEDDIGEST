@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+.logo-watermark {
+  width: 12vw;
+  max-width: 90px;
+  min-width: 48px;
+  height: auto;
+  opacity: 0.85;
+}
+
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background-color: #eef2f6;
+  /* Fallback */
+  background-color: theme('colors.neu.bg');
+}
+
+/* Custom Utilities if needed, but prefer Tailwind classes */
+
+.course-card {
+  border-radius: 30px;
+  background: #eef2f6;
+  box-shadow: 15px 15px 30px #d1d9e6,
+    -15px -15px 30px #ffffff;
+}
+
+.neu-sidebar {
+  background: #eef2f6;
+  box-shadow: 6px 0 16px #d1d9e6;
+  z-index: 50;
+  /* Ensure it casts shadow on content */
+}
+
+.neu-nav-item {
+  border-radius: 15px;
+  background: #eef2f6;
+  box-shadow: 5px 5px 10px #d1d9e6,
+    -5px -5px 10px #ffffff;
+  transition: all 0.3s ease;
+  border: none !important;
+}
+
+.neu-nav-item:hover {
+  transform: translateY(-2px);
+}
+
+.neu-nav-item.active {
+  color: #2563eb;
+  /* blue-600 */
+  box-shadow: inset 5px 5px 10px #d1d9e6,
+    inset -5px -5px 10px #ffffff;
+  transform: none;
+}
+
+.neu-progress-track {
+  border-radius: 9999px;
+  background: #eef2f6;
+  box-shadow: inset 3px 3px 6px #d1d9e6,
+    inset -3px -3px 6px #ffffff;
+}
+
+.neu-button-icon {
+  border-radius: 50%;
+  background: #eef2f6;
+  box-shadow: 5px 5px 10px #d1d9e6,
+    -5px -5px 10px #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
