@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { writeFile } from 'fs/promises';
-import path from 'path';
+import connectToDatabase from '@/lib/db';
+import mongoose from 'mongoose';
+import { GridFSBucket } from 'mongodb';
 
 export const dynamic = 'force-dynamic';
 
@@ -21,20 +22,31 @@ export async function POST(req: Request) {
             return NextResponse.json({ message: 'No file uploaded' }, { status: 400 });
         }
 
+        await connectToDatabase();
+
+        const db = mongoose.connection.db;
+        if (!db) {
+            throw new Error('Database connection not established');
+        }
+
+        const bucket = new GridFSBucket(db, { bucketName: 'uploads' });
+
         const buffer = Buffer.from(await file.arrayBuffer());
-        const filename = Date.now() + '_' + file.name.replaceAll(' ', '_');
+        const filename = Date.now() + '_' + file.name.replaceAll(' ', '_').replace(/[^a-zA-Z0-9._-]/g, '');
 
-        // Ensure filename is safe
-        const safeFilename = filename.replace(/[^a-zA-Z0-9._-]/g, '');
+        const uploadStream = bucket.openUploadStream(filename, {
+            contentType: file.type,
+        });
 
-        const uploadDir = path.join(process.cwd(), 'public/uploads');
-        const filePath = path.join(uploadDir, safeFilename);
+        await new Promise((resolve, reject) => {
+            uploadStream.on('finish', resolve);
+            uploadStream.on('error', reject);
+            uploadStream.end(buffer);
+        });
 
-        await writeFile(filePath, buffer);
+        const fileUrl = `/api/uploads/${filename}`;
 
-        const fileUrl = `/uploads/${safeFilename}`;
-
-        return NextResponse.json({ url: fileUrl, filename: safeFilename });
+        return NextResponse.json({ url: fileUrl, filename: filename });
     } catch (error) {
         console.error('Upload error:', error);
         return NextResponse.json({ message: 'Upload failed' }, { status: 500 });
