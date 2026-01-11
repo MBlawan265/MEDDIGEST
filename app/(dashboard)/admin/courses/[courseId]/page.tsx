@@ -19,8 +19,8 @@ import { NeuButton } from '@/components/ui/NeuButton';
 interface Lesson {
     _id?: string;
     title: string;
-    youtubeUrl?: string; // deprecated
-    driveId?: string;
+    youtubeUrl?: string;
+    driveId?: string; // deprecated - kept for compatibility
     notes: string;
     pdfs: { filename: string; url: string; title: string }[];
     order: number;
@@ -171,7 +171,7 @@ export default function CourseBuilderPage({ params }: { params: { courseId: stri
         const section = course.sections[sectionIndex];
         const newLesson: Lesson = {
             title: 'New Lesson',
-            driveId: '',
+            youtubeUrl: '',
             notes: '',
             pdfs: [],
             order: section.lessons.length,
@@ -381,32 +381,32 @@ export default function CourseBuilderPage({ params }: { params: { courseId: stri
 
                                                 <div className="flex gap-4">
                                                     <div className="flex-1">
-                                                        <label className="block text-xs font-medium text-gray-500">Google Drive Video Link</label>
+                                                        <label className="block text-xs font-medium text-gray-500">YouTube Video Link</label>
                                                         <div className="mt-1 flex rounded-md shadow-sm">
                                                             <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
                                                                 <FaVideo />
                                                             </span>
                                                             <input
-                                                                value={lesson.driveId || ''}
+                                                                value={lesson.youtubeUrl || ''}
                                                                 onChange={(e) => {
                                                                     const val = e.target.value;
                                                                     let id = val;
-                                                                    // Extract ID from common Drive URL formats
-                                                                    const match = val.match(/(?:file\/d\/|id=|open\?id=)([a-zA-Z0-9_-]+)/);
+                                                                    // Extract ID from common YouTube URL formats
+                                                                    const match = val.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
                                                                     if (match) {
                                                                         id = match[1];
                                                                     }
-                                                                    updateLesson(sIndex, lIndex, 'driveId', id);
+                                                                    updateLesson(sIndex, lIndex, 'youtubeUrl', id);
                                                                 }}
                                                                 className="flex-1 min-w-0 block w-full px-3 py-1 rounded-none rounded-r-md sm:text-sm border-gray-300 border"
-                                                                placeholder="Paste Drive Link or ID"
+                                                                placeholder="Paste YouTube Link or Video ID"
                                                             />
                                                         </div>
                                                         <div className="flex justify-between items-start mt-1">
-                                                            <p className="text-xs text-gray-400">ID: {lesson.driveId}</p>
-                                                            {lesson.driveId && (
+                                                            <p className="text-xs text-gray-400">ID: {lesson.youtubeUrl}</p>
+                                                            {lesson.youtubeUrl && (
                                                                 <a
-                                                                    href={`https://drive.google.com/file/d/${lesson.driveId}/preview`}
+                                                                    href={`https://www.youtube.com/watch?v=${lesson.youtubeUrl}`}
                                                                     target="_blank"
                                                                     rel="noopener noreferrer"
                                                                     className="text-xs text-blue-600 hover:text-blue-800 underline"
@@ -415,7 +415,7 @@ export default function CourseBuilderPage({ params }: { params: { courseId: stri
                                                                 </a>
                                                             )}
                                                         </div>
-                                                        <p className="text-[10px] text-amber-600 mt-0.5">⚠️ Ensure file permission is "Anyone with the link"</p>
+                                                        <p className="text-[10px] text-amber-600 mt-0.5">⚠️ Ensure video is public or unlisted</p>
                                                     </div>
                                                 </div>
 
