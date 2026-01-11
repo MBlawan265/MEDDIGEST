@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import GoogleDrivePlayer from '@/components/GoogleDrivePlayer';
+import YouTubePlayer from '@/components/YouTubePlayer';
 import {
     FaCheckCircle,
     FaCircle,
@@ -348,9 +348,10 @@ export default function LearningPage({ params }: { params: { courseId: string } 
                         onContextMenu={(e) => e.preventDefault()}
                     >
                         <div className="w-full aspect-video rounded-[24px] overflow-hidden bg-black shadow-inner relative">
-                            {currentLesson?.driveId ? (
-                                <GoogleDrivePlayer
-                                    driveId={currentLesson.driveId}
+                            {currentLesson?.youtubeUrl ? (
+                                <YouTubePlayer
+                                    videoId={currentLesson.youtubeUrl}
+                                    onEnded={() => saveProgress(videoDuration, videoDuration)}
                                     className="absolute inset-0 w-full h-full"
                                 />
                             ) : (

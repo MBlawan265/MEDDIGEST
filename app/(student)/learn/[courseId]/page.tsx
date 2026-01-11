@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import GoogleDrivePlayer from '@/components/GoogleDrivePlayer';
+import YouTubePlayer from '@/components/YouTubePlayer';
 import {
     FaCheckCircle,
     FaCircle,
@@ -340,19 +340,10 @@ export default function LearningPage({ params }: { params: { courseId: string } 
                     className="bg-black w-full aspect-video md:max-h-[70vh] flex items-center justify-center relative"
                     onContextMenu={(e) => e.preventDefault()}
                 >
-                    {currentLesson?.driveId ? (
-                        <GoogleDrivePlayer
-                            driveId={currentLesson.driveId}
-                        />
-                    ) : currentLesson?.youtubeUrl ? (
-                        // Fallback for legacy YouTube videos if they still exist
-                        <iframe
-                            width="100%"
-                            height="100%"
-                            src={`https://www.youtube.com/embed/${currentLesson.youtubeUrl}?autoplay=1`}
-                            title="Legacy Video"
-                            className="w-full h-full"
-                            allowFullScreen
+                    {currentLesson?.youtubeUrl ? (
+                        <YouTubePlayer
+                            videoId={currentLesson.youtubeUrl}
+                            onEnded={handleComplete}
                         />
                     ) : (
                         <div className="text-white text-center">
